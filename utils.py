@@ -200,10 +200,15 @@ def imsave(image, path):
 def merge(images, size):
   h, w = images.shape[1], images.shape[2]
   img = np.zeros((h*size[0], w*size[1], 1))
+  maxx=0
+  maxy=0
+  x=8
+
   for idx, image in enumerate(images):
     i = idx % size[1]
     j = idx // size[1]
-    x=6
+    
     img[j*h/3:j*h/3+h-x, i*w/3:i*w/3+w-x, :] = image[x:,x:,:]
+    maxx,maxy=j*h/3+h-x,i*w/3+w-x
 
-  return img
+  return img[0:maxx-x,0:maxy-x,:]
